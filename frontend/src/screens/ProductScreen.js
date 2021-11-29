@@ -41,7 +41,7 @@ const ProductScreen = ({ history, match }) => {
 								<h2>{product.name}</h2>
 							</ListGroup.Item>
 							<ListGroup.Item>
-								<Rating value={product.rating} text={`${product.numReviews} reviews`} />
+								<Rating value={Number(product.rating)} text={`${product.numReviews} reviews`} />
 							</ListGroup.Item>
 							<ListGroup.Item>price: ${product.price}</ListGroup.Item>
 							<ListGroup.Item>description: ${product.description}</ListGroup.Item>
@@ -73,11 +73,7 @@ const ProductScreen = ({ history, match }) => {
 										<Row>
 											<Col>Quantity</Col>
 											<Col>
-												<Form.Control
-													as="select"
-													value={qty}
-													onChange={e => setQty(e.target.value)}
-												>
+												<Form.Control as="select" value={qty} onChange={e => setQty(e.target.value)}>
 													{[...Array(product.countInStock).keys()].map(x => (
 														<option key={x + 1} value={x + 1}>
 															{x + 1}
