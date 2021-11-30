@@ -8,8 +8,6 @@ import generateToken from '../utils/generateToken.js';
  * @access   public
  */
 export const postLogin = asyncHandler(async (req, res) => {
-	console.log(req.body);
-
 	const { email, password } = req.body;
 
 	const user = await User.findOne({ email });
@@ -17,7 +15,7 @@ export const postLogin = asyncHandler(async (req, res) => {
 	if (user && (await user.matchPassword(password))) {
 		return res.json({
 			_id: user._id,
-			name: user.email,
+			name: user.name,
 			email: user.email,
 			isAdmin: user.isAdmin,
 			token: await generateToken(user._id),
@@ -39,7 +37,7 @@ export const getUserProfile = asyncHandler(async (req, res) => {
 	if (currentUser) {
 		res.json({
 			_id: currentUser._id,
-			name: currentUser.email,
+			name: currentUser.name,
 			email: currentUser.email,
 			isAdmin: currentUser.isAdmin,
 		});
@@ -69,5 +67,35 @@ export const createUser = asyncHandler(async (req, res) => {
 		email: user.email,
 		name: user.name,
 		isAdmin: user.isAdmin,
+		token: await generateToken(user._id),
 	});
+});
+
+/**
+ * @desc     update user profile
+ * @route    PUT /api/users/profile
+ * @access   public
+ */
+export const updateUserProfile = asyncHandler(async (req, res) => {
+	let user = await User.findById(req.user._id);
+
+	if (user) {
+		user.name = req.body.name || user.name;
+		user.email = req.body.email || user.email;
+		if (req.body.password) {
+			user.password = req.body.password;
+		}
+
+		const updatedUser = await user.save();
+		res.json({
+			_id: updatedUser._id,
+			name: updatedUser.name,
+			email: updatedUser.email,
+			isAdmin: updatedUser.isAdmin,
+			token: await generateToken(updatedUser._id),
+		});
+	} else {
+		res.status(404);
+		throw new Error('user not found');
+	}
 });

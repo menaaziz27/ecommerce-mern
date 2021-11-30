@@ -1,10 +1,10 @@
 import express from 'express';
-import { createUser, getUserProfile, postLogin } from '../controllers/userController.js';
-import { isAuth } from '../middlewares/isAuth.js';
+import { createUser, getUserProfile, postLogin, updateUserProfile } from '../controllers/userController.js';
+import { protect } from '../middlewares/protect.js';
 const router = express.Router();
 
-router.post('/register', createUser);
-router.post('/login', postLogin);
-router.get('/profile', isAuth, getUserProfile);
+router.route('/register').post(createUser);
+router.route('/login').post(postLogin);
+router.route('/profile').get(protect, getUserProfile).put(protect, updateUserProfile);
 
 export default router;
