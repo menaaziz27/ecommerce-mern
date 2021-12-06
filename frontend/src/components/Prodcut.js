@@ -6,7 +6,7 @@ const Prodcut = ({ product }) => {
 	return (
 		<Card className="my-3 p-3 rounded">
 			<Link to={`/products/${product._id}`}>
-				<Card.Img src={product.image} />
+				<Card.Img src={product.image} width="240" height="200" />
 			</Link>
 
 			<Card.Body>

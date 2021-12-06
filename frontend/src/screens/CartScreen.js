@@ -10,7 +10,6 @@ const CartScreen = ({ match, location, history }) => {
 
 	const cart = useSelector(state => state.cart);
 	const { cartItems } = cart;
-	console.log(cartItems);
 
 	const qty = location.search ? Number(location.search.split('=')[1]) : 1;
 
@@ -63,7 +62,11 @@ const CartScreen = ({ match, location, history }) => {
 											</Form.Control>
 										</Col>
 										<Col md={2}>
-											<Button type="button" variant="light" onClick={e => removeFromCartHandler(item.product)}>
+											<Button
+												type="button"
+												variant="light"
+												onClick={e => removeFromCartHandler(item.product)}
+											>
 												<i className="fa fa-trash" />
 											</Button>
 										</Col>

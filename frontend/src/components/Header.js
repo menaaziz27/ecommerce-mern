@@ -3,14 +3,17 @@ import { Container, Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../actions/user.js';
+import { useHistory } from 'react-router-dom';
 
 const Header = () => {
+	const history = useHistory();
 	const dispatch = useDispatch();
 	const userLogin = useSelector(state => state.userLogin);
 	const { userInfo } = userLogin;
 
 	const logoutHandler = e => {
 		dispatch(logout());
+		history.push('/register');
 	};
 
 	return (
