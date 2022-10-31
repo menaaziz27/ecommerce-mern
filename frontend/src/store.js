@@ -9,6 +9,7 @@ import {
 	userProfileReducer,
 	userRegisterReducer,
 } from './reducers/userReducer.js';
+import { orderDetailsReducer, orderPayReducer, orderReducer } from './reducers/orderReducers.js';
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')
 	? JSON.parse(localStorage.getItem('cartItems'))
@@ -35,6 +36,9 @@ const reducers = combineReducers({
 	userRegister: userRegisterReducer,
 	userDetails: userDetailsReducer,
 	userProfile: userProfileReducer,
+	orderCreate: orderReducer,
+	orderDetails: orderDetailsReducer,
+	orderPay: orderPayReducer,
 });
 
 const middlewares = [thunk];

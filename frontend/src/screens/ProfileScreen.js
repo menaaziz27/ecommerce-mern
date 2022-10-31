@@ -26,7 +26,7 @@ const ProfileScreen = ({ location, history }) => {
 		if (!userInfo) {
 			history.push('/login');
 		} else {
-			console.log(user.name);
+			// console.log(user.name);
 			if (!user?.name || user.email !== userInfo.email) {
 				dispatch(getUserDetails('profile'));
 			} else {
